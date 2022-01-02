@@ -29,6 +29,21 @@ public class List {
                 }
             }
         }
+
+    public String returnList() {
+        String returnstr = "";
+        if (!isEmpty()) {
+            Node t = head;
+            returnstr +=t.getItem().toString()+"\n";
+            while (t != tail) {
+                t = t.getNext();
+                returnstr+=t.getItem().toString()+"\n";
+
+            }
+        }
+        return returnstr;
+    }
+
         public int size() {
             return count;
         }

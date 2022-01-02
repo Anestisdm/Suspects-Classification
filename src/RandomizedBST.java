@@ -1,3 +1,5 @@
+import javax.swing.*;
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -28,6 +30,17 @@ public class RandomizedBST implements MafiaInterface {
 
     private TreeNode root; //root in the BST
     private int count; // count of suspects
+    String str ="The Suspects by Tax Identification Number are:\n\n";
+    ImageIcon icon1 = new ImageIcon("src/images/true.png");
+    Image succeed = icon1.getImage().getScaledInstance(40,40,0);
+    ImageIcon icon2 = new ImageIcon("src/images/warning.png");
+    Image warning = icon2.getImage().getScaledInstance(40, 40, 0);
+    ImageIcon icon3 = new ImageIcon("src/images/suspect.png");
+    Image suspect = icon3.getImage().getScaledInstance(40, 40, 0);
+    ImageIcon icon4 = new ImageIcon("src/images/top-suspects.png");
+    Image top_suspects = icon4.getImage().getScaledInstance(40, 40, 0);
+    ImageIcon icon5 = new ImageIcon("src/images/print-by-tax.png");
+    Image print_by_tax = icon5.getImage().getScaledInstance(40, 40, 0);
 
     public RandomizedBST(){
         this.root = null;
@@ -123,7 +136,7 @@ public class RandomizedBST implements MafiaInterface {
 
     @Override
     public void load(String filename) throws DublicateSuspectException, IOException {
-        String filePath = "Data\\"+filename+".txt";
+        String filePath = "src\\data\\"+filename+".txt";
         BufferedReader reader = new BufferedReader(new FileReader(filePath));
         String line = reader.readLine();
         while (line!=null){
@@ -143,11 +156,12 @@ public class RandomizedBST implements MafiaInterface {
     public void updateSavings(int AFM, double savings) {
         Suspect SuspectToUpdate = searchR(root, AFM);
         if (SuspectToUpdate == null){
-            System.out.println("There is no suspect that corresponds to this AFM!");
+            JOptionPane.showMessageDialog(null,"There is no suspect that corresponds to this AFM!","Message",JOptionPane.WARNING_MESSAGE,new ImageIcon(warning));
         }
         else {
             SuspectToUpdate.setSavings(savings);
-            System.out.println("Savings updated successfully!");
+            JOptionPane.showMessageDialog(null,"Savings updated successfully!","Message",JOptionPane.WARNING_MESSAGE,new ImageIcon(succeed));
+
         }
     }
 
@@ -155,10 +169,10 @@ public class RandomizedBST implements MafiaInterface {
     public Suspect searchByAFM(int AFM) {
         Suspect SuspectToPrint = searchR(root, AFM);
         if (SuspectToPrint == null){
-            System.out.println("There is no Suspect that corresponds to this AFM!");
+            JOptionPane.showMessageDialog(null,"There is no suspect that corresponds to this AFM!","Message",JOptionPane.WARNING_MESSAGE,new ImageIcon(warning));
             return SuspectToPrint;
         }
-        System.out.println("The Suspect that corresponds to AFM is:\n"+SuspectToPrint.toString());
+        JOptionPane.showMessageDialog(null,"The Suspect that corresponds to AFM is:\n"+SuspectToPrint.toString(),"Message",JOptionPane.WARNING_MESSAGE,new ImageIcon(suspect));
         return SuspectToPrint;
     }
 
@@ -177,12 +191,12 @@ public class RandomizedBST implements MafiaInterface {
         List Suspects = new List();
         traverseR(root, last_name, Suspects);
         if (Suspects.isEmpty()){
-            System.out.println("No Suspect was found with this Last Name!");
+            JOptionPane.showMessageDialog(null,"No Suspect was found with this Last Name!","Message",JOptionPane.WARNING_MESSAGE,new ImageIcon(warning));
             return null;
         }
         else if (Suspects.size()<=5){
-            System.out.println("The Suspects that corresponds to Last Name are:");
-            Suspects.printList();
+            String output = Suspects.returnList();
+            JOptionPane.showMessageDialog(null,"The Suspects that corresponds to Last Name are:\n\n"+output,"Message",JOptionPane.WARNING_MESSAGE,new ImageIcon(suspect));
             return Suspects;
         }
         else {
@@ -204,10 +218,11 @@ public class RandomizedBST implements MafiaInterface {
         int a = count;
         TreeNode h = removeR(root, AFM,a);
         if (count==a){
-            System.out.println("No Suspect was found with this AFM!");
+            JOptionPane.showMessageDialog(null,"No Suspect was found with this AFM!","Message",JOptionPane.WARNING_MESSAGE,new ImageIcon(warning));
             return;
         }
-        System.out.println("The Suspect with AFM "+AFM+" was removed");
+        JOptionPane.showMessageDialog(null,"The Suspect with AFM "+AFM+" was removed","Message",JOptionPane.WARNING_MESSAGE,new ImageIcon(succeed));
+
 
     }
 
@@ -271,17 +286,18 @@ public class RandomizedBST implements MafiaInterface {
     public void printΤopSuspects(int k) {
         Suspect [] TopSuspects = new Suspect [k];
         traverseSuspects(root, TopSuspects);
-        System.out.println("The Top " + k + " Suspects are:");
+        String output = "The Top " + k + " Suspects are:\n\n";
         int i = 0;
         while (i< TopSuspects.length) {
             if (TopSuspects[i]!=null) {
-                System.out.println((i+1)+ ".\n" + TopSuspects[i].toString());
+                output += (i+1)+ ".\n" + TopSuspects[i].toString();
                 i++;
             }
             else {
                 break;
             }
         }
+        JOptionPane.showMessageDialog(null,output,"Top Suspects",JOptionPane.INFORMATION_MESSAGE,new ImageIcon(top_suspects));
     }
 
     private void traverseSuspects(TreeNode h, Suspect [] TopSuspects) {
@@ -310,13 +326,17 @@ public class RandomizedBST implements MafiaInterface {
 
     @Override
     public void printByAFM() {
-        traverseInOrder(root);
+        String output = traverseInOrder(root);
+        JOptionPane.showMessageDialog(null,output,"Suspects",JOptionPane.INFORMATION_MESSAGE,new ImageIcon(print_by_tax));
+
     }
 
-    private void traverseInOrder(TreeNode h) {
-        if (h == null) return;
+    private String traverseInOrder(TreeNode h) {
+        if (h == null) return str;
         traverseInOrder(h.left);
-        System.out.println(h.item.toString());
-        traverseInOrder(h.right); }
+        str+=h.item.toString()+"\n";
+        traverseInOrder(h.right);
+        return str;
+    }
 
 }
