@@ -31,7 +31,6 @@ public class RandomizedBST_Main {
         Image exit= icon11.getImage().getScaledInstance(40, 40, 0);
         try {
             RandomizedBST Tree = new RandomizedBST();
-            Scanner scanner = new Scanner(System.in);
             int a = 0;
             do {
                 Object[] message = {
