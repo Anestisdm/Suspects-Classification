@@ -1,0 +1,6 @@
+1325 Alphonse Capone 1000000 3000
+3262 Vincenzo Pipino 600000 10000
+4566 Vincenzo Peruggia 460000 12000
+1110 Gino Menghetti 270000 15000
+5324 Frank Torado 110000 13000
+3577 William Tocco 65000 10000
