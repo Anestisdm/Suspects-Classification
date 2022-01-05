@@ -13,6 +13,10 @@ The purpose of this project is to implement a classification algorithm with a Ra
 ### 2 - Application
 The Italian government has decided to make more arrests of suspects after the night falls in Palermo, Sicily. However, because it is difficult to find evidence of murder, theft, etc., has decided to turn to the financial data of suspects who are not justified by their jobs. First of all, a systematic process of registering suspected Italian depositors abroad will begin (in cooperation with the authorities of Switzerland and other countries). However, in order to do this, an application with an efficient data structure needed to be implemented where all the suspects will be registered there. This application implements a Randomized Binary Search Tree which classifies the suspicious depositors based on their financial data.
 
+<p align="center">
+<img src="https://user-images.githubusercontent.com/72802400/148258575-55797c3e-b5d5-4aed-af89-79529d14a554.png">
+</p>
+
 ### 3 - Features
 * Insert Suspects in the application manually
 * Load Suspects in the application via text file 
